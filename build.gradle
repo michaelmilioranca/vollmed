@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.2-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.1.0'
+	id "com.diffplug.spotless" version "6.18.0"
 }
 
 group = 'med.voll'
@@ -21,13 +22,41 @@ repositories {
 }
 
 dependencies {
+	// Spring boot
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// Flyway
+	implementation 'org.flywaydb:flyway-core:9.16.3'
+	implementation 'org.flywaydb:flyway-mysql:9.16.3'
+	// Database
+	implementation 'org.springframework.data:spring-data-jpa:3.0.4'
+	implementation 'com.mysql:mysql-connector-j:8.0.32'
+
 	compileOnly 'org.projectlombok:lombok'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
 	annotationProcessor 'org.projectlombok:lombok'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// Format stuff
+spotless {
+	java {
+		// Use the default importOrder configuration
+		importOrder()
+		removeUnusedImports()
+		googleJavaFormat()   // has its own section below
+		formatAnnotations()  // fixes formatting of type annotations, see below
+	}
+}
+
+compileJava.dependsOn 'spotlessApply'
