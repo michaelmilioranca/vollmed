@@ -1,7 +1,9 @@
 package med.voll.api.service;
 
 import jakarta.transaction.Transactional;
+import java.util.Optional;
 import med.voll.api.medico.InMedicoRecord;
+import med.voll.api.medico.Medico;
 import med.voll.api.medico.MedicoRepository;
 import med.voll.api.medico.MedicoTransformer;
 import med.voll.api.medico.OutMedicoRecord;
@@ -14,20 +16,33 @@ import org.springframework.stereotype.Service;
 @Service
 public class MedicoService implements IMedicoService {
 
-  @Autowired private MedicoRepository repository;
+  @Autowired private MedicoRepository medicoRepository;
 
   @Transactional
-  public void save(InMedicoRecord record) {
-    repository.save(MedicoTransformer.recordToEntity(record));
+  public Medico save(InMedicoRecord record) {
+    return medicoRepository.save(MedicoTransformer.inRecordToEntity(record));
   }
 
   @Override
-  public Page<OutMedicoRecord> findAll(Pageable paginacao) {
-    return repository.findAll(paginacao).map(MedicoTransformer::entityToRecord);
+  public Page<OutMedicoRecord> findAllAtivo(Pageable paginacao) {
+    return medicoRepository.findAllByAtivoTrue(paginacao).map(MedicoTransformer::entityToOutRecord);
   }
 
   @Override
-  public void update(UpdateMedicoRecord record) {
-    repository.save(MedicoTransformer.updateRecordToEntity(record));
+  public void update(Medico medico, UpdateMedicoRecord updatedMedico) {
+    medico.update(updatedMedico);
+    if (updatedMedico.endereco() != null) {
+      medico.getEndereco().update(updatedMedico.endereco());
+    }
+  }
+
+  @Override
+  public Optional<Medico> findById(Long id) {
+    return medicoRepository.findById(id);
+  }
+
+  @Override
+  public void inactive(Medico medico) {
+    medico.inactive();
   }
 }

@@ -20,4 +20,28 @@ public class Endereco {
   private String complemento;
   private String cidade;
   private String uf;
+
+  public void update(EnderecoRecord updatedEndereco) {
+    if (updatedEndereco.logradouro() != null) {
+      this.logradouro = updatedEndereco.logradouro();
+    }
+    if (updatedEndereco.bairro() != null) {
+      this.bairro = updatedEndereco.bairro();
+    }
+    if (updatedEndereco.cep() != null) {
+      this.cep = updatedEndereco.cep();
+    }
+    if (updatedEndereco.numero() != null) {
+      this.numero = updatedEndereco.numero();
+    }
+    if (updatedEndereco.complemento() != null) {
+      this.complemento = updatedEndereco.complemento();
+    }
+    if (updatedEndereco.cidade() != null) {
+      this.cidade = updatedEndereco.cidade();
+    }
+    if (updatedEndereco.uf() != null) {
+      this.uf = updatedEndereco.uf();
+    }
+  }
 }

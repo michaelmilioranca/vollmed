@@ -32,9 +32,23 @@ public class Medico {
   private String telefone;
   private String email;
   private String crm;
+  private Boolean ativo;
 
   @Enumerated(EnumType.STRING)
   private EspecialidadeEnum especialidade;
   // Basically this turns the fields as a separated object instead of having them all here
   @Embedded private Endereco endereco;
+
+  public void update(UpdateMedicoRecord updatedMedico) {
+    if (updatedMedico.nome() != null) {
+      this.nome = updatedMedico.nome();
+    }
+    if (updatedMedico.telefone() != null) {
+      this.telefone = updatedMedico.telefone();
+    }
+  }
+
+  public void inactive() {
+    this.ativo = false;
+  }
 }

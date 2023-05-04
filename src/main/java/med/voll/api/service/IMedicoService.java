@@ -1,15 +1,21 @@
 package med.voll.api.service;
 
+import java.util.Optional;
 import med.voll.api.medico.InMedicoRecord;
+import med.voll.api.medico.Medico;
 import med.voll.api.medico.OutMedicoRecord;
 import med.voll.api.medico.UpdateMedicoRecord;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IMedicoService {
-  void save(InMedicoRecord record);
+  Medico save(InMedicoRecord record);
 
-  Page<OutMedicoRecord> findAll(Pageable paginacao);
+  Page<OutMedicoRecord> findAllAtivo(Pageable paginacao);
 
-  void update(UpdateMedicoRecord record);
+  void update(Medico medico, UpdateMedicoRecord toBeUpdate);
+
+  Optional<Medico> findById(Long id);
+
+  void inactive(Medico medico);
 }

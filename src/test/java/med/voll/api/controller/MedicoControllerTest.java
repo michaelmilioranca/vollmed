@@ -1,5 +1,10 @@
 package med.voll.api.controller;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+
 import med.voll.api.service.MedicoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @WebMvcTest(MedicoController.class)
 @ActiveProfiles("test")
@@ -26,7 +26,7 @@ class MedicoControllerTest {
   @Test
   void shouldReturnSomething() throws Exception {
 
-    when(service.findAll(any())).thenReturn(Page.empty());
+    when(service.findAllAtivo(any())).thenReturn(Page.empty());
     this.mockMvc
         .perform(get("/medicos"))
         .andDo(print())

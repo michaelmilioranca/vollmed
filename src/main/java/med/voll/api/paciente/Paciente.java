@@ -31,5 +31,22 @@ public class Paciente {
   private String email;
   private String cpf;
   private String telefone;
+  private Boolean ativo;
   @Embedded private Endereco endereco;
+
+  public void inactive() {
+    this.ativo = false;
+  }
+
+  public void update(UpdatePacienteRecord updatedPaciente) {
+    if (updatedPaciente.nome() != null) {
+      this.nome = updatedPaciente.nome();
+    }
+    if (updatedPaciente.telefone() != null) {
+      this.telefone = updatedPaciente.telefone();
+    }
+    if (updatedPaciente.endereco() != null) {
+      this.endereco.update(updatedPaciente.endereco());
+    }
+  }
 }
