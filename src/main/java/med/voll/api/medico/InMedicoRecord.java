@@ -8,9 +8,13 @@ import jakarta.validation.constraints.Pattern;
 import med.voll.api.endereco.EnderecoRecord;
 
 public record InMedicoRecord(
-    @NotBlank String nome,
-    @NotBlank @Email String email,
-    @NotBlank String telefone,
-    @NotBlank @Pattern(regexp = "\\d{4,6}") String crm,
-    @NotNull EspecialidadeEnum especialidade,
-    @NotNull @Valid EnderecoRecord endereco) {}
+    @NotBlank(message = "{nome.obrigatorio}") String nome,
+    @NotBlank(message = "{email.obrigatorio}")
+        @Email(message = "Formato de email inválido. Ex: sample@example.com.br")
+        String email,
+    @NotBlank(message = "{telefone.obrigatorio}") String telefone,
+    @NotBlank(message = "{crm.obrigatorio}")
+        @Pattern(regexp = "\\d{4,6}", message = "{crm.invalido}")
+        String crm,
+    @NotNull(message = "{especialidade.obrigatorio}") EspecialidadeEnum especialidade,
+    @NotNull(message = "{endereco.obrigatorio}") @Valid EnderecoRecord endereco) {}

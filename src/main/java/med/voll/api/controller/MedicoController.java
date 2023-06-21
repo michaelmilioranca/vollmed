@@ -49,36 +49,23 @@ public class MedicoController {
 
   @GetMapping("/{id}")
   public ResponseEntity<MedicoRecord> findById(@PathVariable Long id) {
-    var optionalMedico = service.findById(id);
-    return optionalMedico
-        .map(medico -> ResponseEntity.ok(MedicoTransformer.entityToRecord(medico)))
-        .orElseGet(() -> ResponseEntity.notFound().build());
+    return ResponseEntity.ok(MedicoTransformer.entityToRecord(service.findById(id)));
   }
 
   @PutMapping("/{id}")
   @Transactional
   public ResponseEntity<MedicoRecord> update(
       @PathVariable Long id, @RequestBody @Valid UpdateMedicoRecord record) {
-    var optionalMedico = service.findById(id);
-    return optionalMedico
-        .map(
-            medico -> {
-              service.update(medico, record);
-              return ResponseEntity.ok(MedicoTransformer.entityToRecord(medico));
-            })
-        .orElse(ResponseEntity.notFound().build());
+    var medico = service.findById(id);
+    service.update(medico, record);
+    return ResponseEntity.ok(MedicoTransformer.entityToRecord(medico));
   }
 
   @DeleteMapping("/{id}")
   @Transactional
   public ResponseEntity delete(@PathVariable Long id) {
-    var optionalMedico = service.findById(id);
-    return optionalMedico
-        .map(
-            medico -> {
-              service.inactive(optionalMedico.get());
-              return ResponseEntity.noContent().build();
-            })
-        .orElse(ResponseEntity.notFound().build());
+    var medico = service.findById(id);
+    service.inactive(medico);
+    return ResponseEntity.noContent().build();
   }
 }

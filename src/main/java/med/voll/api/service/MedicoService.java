@@ -1,7 +1,6 @@
 package med.voll.api.service;
 
 import jakarta.transaction.Transactional;
-import java.util.Optional;
 import med.voll.api.medico.InMedicoRecord;
 import med.voll.api.medico.Medico;
 import med.voll.api.medico.MedicoRepository;
@@ -37,8 +36,8 @@ public class MedicoService implements IMedicoService {
   }
 
   @Override
-  public Optional<Medico> findById(Long id) {
-    return medicoRepository.findById(id);
+  public Medico findById(Long id) {
+    return medicoRepository.getReferenceById(id);
   }
 
   @Override

@@ -1,6 +1,5 @@
 package med.voll.api.service;
 
-import java.util.Optional;
 import med.voll.api.medico.InMedicoRecord;
 import med.voll.api.medico.Medico;
 import med.voll.api.medico.OutMedicoRecord;
@@ -15,7 +14,7 @@ public interface IMedicoService {
 
   void update(Medico medico, UpdateMedicoRecord toBeUpdate);
 
-  Optional<Medico> findById(Long id);
+  Medico findById(Long id);
 
   void inactive(Medico medico);
 }

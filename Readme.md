@@ -21,6 +21,12 @@ In order to sort the pageable get endpoints simply add in your call the followin
 
 Example: https://localhost:8080/medicos?sort=nome,desc&size=1&page=2
 
+# Error translation
+
+In order to receive an error with the desired language we can send into the header the following paramter:
+
+- Accept-Language: pt-br
+
 # HTTP Status examples:
 
 - 1XX: Informativo – a solicitação foi aceita ou o processo continua em andamento;

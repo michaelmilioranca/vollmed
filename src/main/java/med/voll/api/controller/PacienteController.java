@@ -33,7 +33,6 @@ public class PacienteController {
   @Transactional
   public ResponseEntity<PacienteRecord> save(
       @RequestBody @Valid InPacienteRecord record, UriComponentsBuilder uriBuilder) {
-
     var paciente = service.save(record);
     var uri = uriBuilder.path("/pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
     return ResponseEntity.created(uri).body(PacienteTransformer.entityToRecord(paciente));
@@ -50,36 +49,23 @@ public class PacienteController {
 
   @GetMapping("/{id}")
   public ResponseEntity<PacienteRecord> findById(@PathVariable Long id) {
-    var optionalPaciente = service.findById(id);
-    return optionalPaciente
-        .map(paciente -> ResponseEntity.ok(PacienteTransformer.entityToRecord(paciente)))
-        .orElse(ResponseEntity.notFound().build());
+    return ResponseEntity.ok(PacienteTransformer.entityToRecord(service.findById(id)));
   }
 
   @PutMapping("/{id}")
   @Transactional
   public ResponseEntity<PacienteRecord> update(
       @PathVariable Long id, @RequestBody @Valid UpdatePacienteRecord record) {
-    var optionalPaciente = service.findById(id);
-    return optionalPaciente
-        .map(
-            paciente -> {
-              service.update(paciente, record);
-              return ResponseEntity.ok(PacienteTransformer.entityToRecord(paciente));
-            })
-        .orElse(ResponseEntity.notFound().build());
+    var paciente = service.findById(id);
+    service.update(paciente, record);
+    return ResponseEntity.ok(PacienteTransformer.entityToRecord(paciente));
   }
 
   @DeleteMapping("/{id}")
   @Transactional
   public ResponseEntity delete(@PathVariable Long id) {
-    var optionalPaciente = service.findById(id);
-    return optionalPaciente
-        .map(
-            paciente -> {
-              service.inactive(paciente);
-              return ResponseEntity.noContent().build();
-            })
-        .orElse(ResponseEntity.notFound().build());
+    var paciente = service.findById(id);
+    service.inactive(paciente);
+    return ResponseEntity.noContent().build();
   }
 }

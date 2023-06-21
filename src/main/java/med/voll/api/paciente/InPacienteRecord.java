@@ -10,8 +10,10 @@ import med.voll.api.endereco.EnderecoRecord;
 
 @Builder
 public record InPacienteRecord(
-    @NotBlank String nome,
-    @NotBlank @Email String email,
-    @NotBlank String telefone,
-    @NotBlank @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}") String cpf,
-    @NotNull @Valid EnderecoRecord endereco) {}
+    @NotBlank(message = "{nome.obrigatorio}") String nome,
+    @NotBlank(message = "{email.obrigatorio}") @Email String email,
+    @NotBlank(message = "{telefone.obrigatorio}") String telefone,
+    @NotBlank(message = "{cpf.obrigatorio}")
+        @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}", message = "{cpf.invalido}")
+        String cpf,
+    @NotNull(message = "{endereco.obrigatorio}") @Valid EnderecoRecord endereco) {}

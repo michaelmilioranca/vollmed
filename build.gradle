@@ -26,6 +26,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	// Flyway
 	implementation 'org.flywaydb:flyway-core:9.16.3'
@@ -42,6 +44,7 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'com.h2database:h2:2.1.214'
+	testImplementation 'org.springframework.security:spring-security-test'
 
 
 }
@@ -57,8 +60,23 @@ spotless {
 		importOrder()
 		removeUnusedImports()
 		googleJavaFormat()   // has its own section below
-		formatAnnotations()  // fixes formatting of type annotations, see below
+		formatAnnotations()  // fixes formatting of type annotations
 	}
 }
 
 compileJava.dependsOn 'spotlessApply'
+
+tasks.register("bootRunDev") {
+	group = "application"
+	description = "Runs the Spring Boot application with the dev profile"
+	dependencies {
+		// Add h2 implementation only when dev mode
+		implementation 'com.h2database:h2:2.1.214'
+	}
+	doFirst {
+		tasks.bootRun.configure {
+			systemProperty("spring.profiles.active", "dev")
+		}
+	}
+	finalizedBy("bootRun")
+}
