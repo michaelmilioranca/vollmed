@@ -1,7 +1,7 @@
 package med.voll.api.controller;
 
 import jakarta.validation.Valid;
-import med.voll.api.domain.usario.AuthenticationRecord;
+import med.voll.api.domain.usario.AuthenticationInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,10 +18,10 @@ public class AutenticacaoController {
   @Autowired AuthenticationManager authenticationManager;
 
   @PostMapping
-  public ResponseEntity login(@RequestBody @Valid AuthenticationRecord authenticationRecord) {
+  public ResponseEntity login(@RequestBody @Valid AuthenticationInput authenticationInput) {
     var token =
         new UsernamePasswordAuthenticationToken(
-            authenticationRecord.user(), authenticationRecord.password());
+            authenticationInput.user(), authenticationInput.password());
     var authentication = authenticationManager.authenticate(token);
 
     return ResponseEntity.ok().build();

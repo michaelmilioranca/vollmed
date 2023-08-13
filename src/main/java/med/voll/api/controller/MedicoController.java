@@ -2,10 +2,10 @@ package med.voll.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.medico.InMedicoRecord;
-import med.voll.api.medico.MedicoRecord;
+import med.voll.api.medico.MedicoCleanOutput;
+import med.voll.api.medico.MedicoInput;
+import med.voll.api.medico.MedicoOutput;
 import med.voll.api.medico.MedicoTransformer;
-import med.voll.api.medico.OutMedicoRecord;
 import med.voll.api.medico.UpdateMedicoRecord;
 import med.voll.api.service.IMedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +30,16 @@ public class MedicoController {
   @Autowired private IMedicoService service;
 
   @PostMapping
-  public ResponseEntity<MedicoRecord> save(
-      @RequestBody @Valid InMedicoRecord record, UriComponentsBuilder uriBuilder) {
-    var medico = service.save(record);
+  public ResponseEntity<MedicoOutput> save(
+      @RequestBody @Valid MedicoInput medicoInput, UriComponentsBuilder uriBuilder) {
+    var medico = service.save(medicoInput);
     var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
 
     return ResponseEntity.created(uri).body(MedicoTransformer.entityToRecord(medico));
   }
 
   @GetMapping
-  public ResponseEntity<Page<OutMedicoRecord>> findAll(
+  public ResponseEntity<Page<MedicoCleanOutput>> findAll(
       @PageableDefault(
               size = 5,
               sort = {"nome"})
@@ -48,13 +48,13 @@ public class MedicoController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<MedicoRecord> findById(@PathVariable Long id) {
+  public ResponseEntity<MedicoOutput> findById(@PathVariable Long id) {
     return ResponseEntity.ok(MedicoTransformer.entityToRecord(service.findById(id)));
   }
 
   @PutMapping("/{id}")
   @Transactional
-  public ResponseEntity<MedicoRecord> update(
+  public ResponseEntity<MedicoOutput> update(
       @PathVariable Long id, @RequestBody @Valid UpdateMedicoRecord record) {
     var medico = service.findById(id);
     service.update(medico, record);

@@ -4,9 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IPacienteService {
-  Paciente save(InPacienteRecord record);
+  Paciente save(PacienteInput record);
 
-  Page<OutPacienteRecord> findAllAtivo(Pageable paginacao);
+  Page<PacienteCleanOutput> findAllAtivo(Pageable paginacao);
 
   void inactive(Paciente paciente);
 

@@ -9,7 +9,7 @@ import lombok.Builder;
 import med.voll.api.endereco.EnderecoRecord;
 
 @Builder
-public record InPacienteRecord(
+public record PacienteInput(
     @NotBlank(message = "{nome.obrigatorio}") String nome,
     @NotBlank(message = "{email.obrigatorio}") @Email String email,
     @NotBlank(message = "{telefone.obrigatorio}") String telefone,

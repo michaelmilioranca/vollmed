@@ -11,12 +11,12 @@ public class PacienteService implements IPacienteService {
   @Autowired PacienteRepository repository;
 
   @Override
-  public Paciente save(InPacienteRecord record) {
+  public Paciente save(PacienteInput record) {
     return repository.save(PacienteTransformer.inRecordToEntity(record));
   }
 
   @Override
-  public Page<OutPacienteRecord> findAllAtivo(Pageable paginacao) {
+  public Page<PacienteCleanOutput> findAllAtivo(Pageable paginacao) {
     return repository.findAllByAtivoTrue(paginacao).map(PacienteTransformer::entityToOutRecord);
   }
 

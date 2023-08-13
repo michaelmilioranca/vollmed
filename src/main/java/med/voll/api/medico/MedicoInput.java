@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import med.voll.api.endereco.EnderecoRecord;
 
-public record InMedicoRecord(
+public record MedicoInput(
     @NotBlank(message = "{nome.obrigatorio}") String nome,
     @NotBlank(message = "{email.obrigatorio}")
         @Email(message = "Formato de email inválido. Ex: sample@example.com.br")

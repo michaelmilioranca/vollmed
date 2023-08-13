@@ -3,9 +3,9 @@ package med.voll.api.controller;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.paciente.IPacienteService;
-import med.voll.api.paciente.InPacienteRecord;
-import med.voll.api.paciente.OutPacienteRecord;
-import med.voll.api.paciente.PacienteRecord;
+import med.voll.api.paciente.PacienteCleanOutput;
+import med.voll.api.paciente.PacienteInput;
+import med.voll.api.paciente.PacienteOutput;
 import med.voll.api.paciente.PacienteTransformer;
 import med.voll.api.paciente.UpdatePacienteRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +31,15 @@ public class PacienteController {
 
   @PostMapping
   @Transactional
-  public ResponseEntity<PacienteRecord> save(
-      @RequestBody @Valid InPacienteRecord record, UriComponentsBuilder uriBuilder) {
-    var paciente = service.save(record);
+  public ResponseEntity<PacienteOutput> save(
+      @RequestBody @Valid PacienteInput input, UriComponentsBuilder uriBuilder) {
+    var paciente = service.save(input);
     var uri = uriBuilder.path("/pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
     return ResponseEntity.created(uri).body(PacienteTransformer.entityToRecord(paciente));
   }
 
   @GetMapping
-  public ResponseEntity<Page<OutPacienteRecord>> findAll(
+  public ResponseEntity<Page<PacienteCleanOutput>> findAll(
       @PageableDefault(
               size = 5,
               sort = {"nome"})
@@ -48,13 +48,13 @@ public class PacienteController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<PacienteRecord> findById(@PathVariable Long id) {
+  public ResponseEntity<PacienteOutput> findById(@PathVariable Long id) {
     return ResponseEntity.ok(PacienteTransformer.entityToRecord(service.findById(id)));
   }
 
   @PutMapping("/{id}")
   @Transactional
-  public ResponseEntity<PacienteRecord> update(
+  public ResponseEntity<PacienteOutput> update(
       @PathVariable Long id, @RequestBody @Valid UpdatePacienteRecord record) {
     var paciente = service.findById(id);
     service.update(paciente, record);

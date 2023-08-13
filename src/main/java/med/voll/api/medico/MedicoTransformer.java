@@ -4,7 +4,7 @@ import med.voll.api.endereco.EnderecoTransformer;
 
 public class MedicoTransformer {
 
-  public static Medico inRecordToEntity(final InMedicoRecord record) {
+  public static Medico inRecordToEntity(final MedicoInput record) {
     return Medico.builder()
         .ativo(true)
         .nome(record.nome())
@@ -16,8 +16,8 @@ public class MedicoTransformer {
         .build();
   }
 
-  public static OutMedicoRecord entityToOutRecord(Medico medico) {
-    return OutMedicoRecord.builder()
+  public static MedicoCleanOutput entityToOutRecord(Medico medico) {
+    return MedicoCleanOutput.builder()
         .id(medico.getId())
         .nome(medico.getNome())
         .email(medico.getEmail())
@@ -26,8 +26,8 @@ public class MedicoTransformer {
         .build();
   }
 
-  public static MedicoRecord entityToRecord(Medico medico) {
-    return MedicoRecord.builder()
+  public static MedicoOutput entityToRecord(Medico medico) {
+    return MedicoOutput.builder()
         .id(medico.getId())
         .nome(medico.getNome())
         .email(medico.getEmail())

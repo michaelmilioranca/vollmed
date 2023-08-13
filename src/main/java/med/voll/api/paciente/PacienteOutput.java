@@ -4,5 +4,5 @@ import lombok.Builder;
 import med.voll.api.endereco.EnderecoRecord;
 
 @Builder
-public record PacienteRecord(
+public record PacienteOutput(
     Long id, String nome, String email, String telefone, String cpf, EnderecoRecord endereco) {}

@@ -4,7 +4,7 @@ import lombok.Builder;
 import med.voll.api.endereco.EnderecoRecord;
 
 @Builder
-public record MedicoRecord(
+public record MedicoOutput(
     Long id,
     String nome,
     String email,

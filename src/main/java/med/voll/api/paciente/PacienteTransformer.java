@@ -3,8 +3,8 @@ package med.voll.api.paciente;
 import med.voll.api.endereco.EnderecoTransformer;
 
 public class PacienteTransformer {
-  public static OutPacienteRecord entityToOutRecord(Paciente paciente) {
-    return OutPacienteRecord.builder()
+  public static PacienteCleanOutput entityToOutRecord(Paciente paciente) {
+    return PacienteCleanOutput.builder()
         .id(paciente.getId())
         .nome(paciente.getNome())
         .cpf(paciente.getCpf())
@@ -12,7 +12,7 @@ public class PacienteTransformer {
         .build();
   }
 
-  public static Paciente inRecordToEntity(InPacienteRecord record) {
+  public static Paciente inRecordToEntity(PacienteInput record) {
     return Paciente.builder()
         .nome(record.nome())
         .email(record.email())
@@ -23,8 +23,8 @@ public class PacienteTransformer {
         .build();
   }
 
-  public static PacienteRecord entityToRecord(Paciente paciente) {
-    return PacienteRecord.builder()
+  public static PacienteOutput entityToRecord(Paciente paciente) {
+    return PacienteOutput.builder()
         .id(paciente.getId())
         .nome(paciente.getNome())
         .cpf(paciente.getCpf())
