@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.2-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.1.0'
-	id "com.diffplug.spotless" version "6.18.0"
+	id "com.diffplug.spotless" version "6.20.0"
 }
 
 group = 'med.voll'
@@ -39,6 +39,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	developmentOnly 'com.h2database:h2:2.1.214'
 
 	annotationProcessor 'org.projectlombok:lombok'
 
@@ -65,18 +66,3 @@ spotless {
 }
 
 compileJava.dependsOn 'spotlessApply'
-
-tasks.register("bootRunDev") {
-	group = "application"
-	description = "Runs the Spring Boot application with the dev profile"
-	dependencies {
-		// Add h2 implementation only when dev mode
-		implementation 'com.h2database:h2:2.1.214'
-	}
-	doFirst {
-		tasks.bootRun.configure {
-			systemProperty("spring.profiles.active", "dev")
-		}
-	}
-	finalizedBy("bootRun")
-}

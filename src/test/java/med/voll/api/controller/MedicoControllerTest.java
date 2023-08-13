@@ -24,12 +24,12 @@ class MedicoControllerTest {
   @MockBean MedicoService service;
 
   @Test
-  void shouldReturnSomething() throws Exception {
+  void deveRetornar401QuandoNaoPassarToken() throws Exception {
 
     when(service.findAllAtivo(any())).thenReturn(Page.empty());
     this.mockMvc
         .perform(get("/medicos"))
         .andDo(print())
-        .andExpect(MockMvcResultMatchers.status().isOk());
+        .andExpect(MockMvcResultMatchers.status().isUnauthorized());
   }
 }

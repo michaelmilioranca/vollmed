@@ -36,6 +36,7 @@ public class Medico {
 
   @Enumerated(EnumType.STRING)
   private EspecialidadeEnum especialidade;
+
   // Basically this turns the fields as a separated object instead of having them all here
   @Embedded private Endereco endereco;
 

@@ -7,9 +7,20 @@
 
 # Run Locally
 
-First we have to compose our database image, to do that we simply run the following command on the root of the project:
+We can either run using a docker database image through the command
 
-    docker compose --file docker-compose.yml up vollmed_db -d
+```BASH
+docker compose --file docker-compose.yml up vollmed_db -d
+```
+Important, if you run the database local, you need to change the url on `application-dev.yml`
+
+Or simply using in memory database (default mode)
+
+After you decided which method you want, you can then run the command below
+
+```BASH
+./gradlew bootRun --args="--spring.profiles.active=dev"
+```
 
 
 # Sort pageable get endpoint
@@ -23,7 +34,7 @@ Example: https://localhost:8080/medicos?sort=nome,desc&size=1&page=2
 
 # Error translation
 
-In order to receive an error with the desired language we can send into the header the following paramter:
+In order to receive an error with the desired language we can send into the header the following parameter:
 
 - Accept-Language: pt-br
 
