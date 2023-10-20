@@ -19,6 +19,10 @@ public class SecurityConfig {
   @Bean // Needed to tell to the Application inject this when we use
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
     return httpSecurity
+        .headers()
+        .frameOptions()
+        .sameOrigin() // Precisa para que, seja possível usar o h2 console
+        .and()
         .csrf(AbstractHttpConfigurer::disable) // Disable since we are using JWT
         .sessionManagement(
             sessionManagement ->

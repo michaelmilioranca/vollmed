@@ -8,7 +8,6 @@ import med.voll.api.medico.MedicoOutput;
 import med.voll.api.medico.MedicoTransformer;
 import med.voll.api.medico.UpdateMedicoRecord;
 import med.voll.api.service.IMedicoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -27,7 +26,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/medicos")
 public class MedicoController {
 
-  @Autowired private IMedicoService service;
+  private final IMedicoService service;
+
+  public MedicoController(final IMedicoService service) {
+    this.service = service;
+  }
 
   @PostMapping
   public ResponseEntity<MedicoOutput> save(

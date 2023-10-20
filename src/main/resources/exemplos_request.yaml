@@ -1,0 +1,344 @@
+_type: export
+__export_format: 4
+__export_date: 2023-09-28T13:59:52.518Z
+__export_source: insomnia.desktop.app:v8.0.0
+resources:
+  - _id: req_356e88021ad34efb89bbe33c03ef9794
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1693084779066
+    created: 1691884506110
+    url: http://localhost:8080/login
+    name: Efetuar Login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"user": "ana.souza@voll.med",
+        	"password": "123456"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1691884506110
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_eee7625a99514e708f49ed21ec87bbe6
+    parentId: null
+    modified: 1681578595555
+    created: 1681578595555
+    name: MedVoll - API
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_8e7b2b9bfb2147e3ad65ed259aec6d80
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1683467803954
+    created: 1683214306609
+    url: localhost:8080/pacientes/1
+    name: Detalhar Medico
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1683214306609
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_22e6766bbfed460e90d8474d106a9e7e
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1683220213657
+    created: 1681926616386
+    url: localhost:8080/pacientes
+    name: Listar Pacientes
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1681926616386
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3f7b65c2adb6467a9141838fcdc43c31
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1683220230277
+    created: 1682165918140
+    url: localhost:8080/pacientes/1
+    name: Excluir Paciente
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1681926458591
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6612955067b34b88b186041de049cd82
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1683469528035
+    created: 1681926300796
+    url: localhost:8080/pacientes
+    name: Incluir Paciente
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"nome": "Giovanna Mazoni",
+        	"email": "gigimazoni@hotmail.com",
+        	"telefone": "51992427667",
+        	"cpf": "123.456.712-99",
+        	"endereco": {
+        		"logradouro": "rua 1",
+        		"bairro": "bairro",
+        		"cep": "12345678",
+        		"cidade": "Brasilia",
+        		"uf": "DF",
+        		"numero": "1",
+        		"complemento": "complemento"
+        	}
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_d5a3d583f9ec41afb7769948f006e63c
+    authentication: {}
+    metaSortKey: -1681926300796
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9c5abbdc1753447094726ba0cccd050f
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1683466697929
+    created: 1682165858263
+    url: localhost:8080/pacientes/1
+    name: Atualizar Paciente
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"nome": "Giovanna Carvalho Mazoni"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1681883686951
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9408059c5b594f11b163acc11835ba04
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1683220241971
+    created: 1681841073106
+    url: localhost:8080/medicos
+    name: Listar Medicos
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1681841073106
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_672026b6a3754a05921d3de16e7cbb2b
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1683220247866
+    created: 1683211590892
+    url: localhost:8080/medicos/1
+    name: Detalhar Medico
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1681709845299.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_337ab5080f784744ba345a98576acdca
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1683468525312
+    created: 1681578617493
+    url: localhost:8080/medicos
+    name: Incluir Medico
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"nome": "Vanessa Andrade",
+        	"email": "vanessa.andrade@voll.med",
+        	"telefone": "51992427667",
+        	"crm": "999999",
+        	"especialidade": "ORTOPEDIA",
+        	"endereco": {
+        		"logradouro": "rua 1",
+        		"bairro": "bairro",
+        		"cep": "12345678",
+        		"cidade": "Brasilia",
+        		"uf": "DF"
+        	}
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_7cedd46a8494428797809f713365cb80
+      - id: pair_53927905d12348f489b2d8bb5272c731
+        name: Accept-Language
+        value: pt-br
+        description: ""
+    authentication: {}
+    metaSortKey: -1681578617493
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c100b740ad6d4b488e87977cf82be70e
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1683466706949
+    created: 1682161796996
+    url: localhost:8080/medicos/1
+    name: Atualizar Medico
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"nome": "Ricard Silva Mendes"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1681578617443
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8035415349ab4459a91a0b74f1af8156
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1683220278509
+    created: 1682163389969
+    url: localhost:8080/medicos/5
+    name: Excluir Medico
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1681578617393
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_b88589b38fef2cd76fc4aaf44fed4e46b911018f
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1681578595557
+    created: 1681578595557
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1681578595557
+    _type: environment
+  - _id: jar_b88589b38fef2cd76fc4aaf44fed4e46b911018f
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1684744937388
+    created: 1681578595558
+    name: Default Jar
+    cookies:
+      - key: JSESSIONID
+        value: 12FC90CFEDC1094A6AC123B49EB61F45
+        domain: localhost
+        path: /
+        httpOnly: true
+        hostOnly: true
+        creation: 2023-05-22T08:42:17.388Z
+        lastAccessed: 2023-05-22T08:42:17.388Z
+        id: "10204658939181854"
+    _type: cookie_jar
+  - _id: spc_44daa5cdb2ca4d0da3526086784e92c4
+    parentId: wrk_eee7625a99514e708f49ed21ec87bbe6
+    modified: 1681578595555
+    created: 1681578595555
+    fileName: MedVoll - API
+    contents: ""
+    contentType: yaml
+    _type: api_spec

@@ -8,7 +8,6 @@ import med.voll.api.paciente.PacienteInput;
 import med.voll.api.paciente.PacienteOutput;
 import med.voll.api.paciente.PacienteTransformer;
 import med.voll.api.paciente.UpdatePacienteRecord;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -27,7 +26,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/pacientes")
 public class PacienteController {
 
-  @Autowired IPacienteService service;
+  private final IPacienteService service;
+
+  public PacienteController(final IPacienteService service) {
+    this.service = service;
+  }
 
   @PostMapping
   @Transactional
