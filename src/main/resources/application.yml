@@ -1,12 +1,23 @@
 spring:
+  jpa:
+    open-in-view: true
   datasource:
     url: jdbc:mysql://localhost:3306/vollmed_api
     username: admin
     password: do_not_change_it
+  output:
+    ansi:
+      enabled: ALWAYS
+
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:donotchangeit}
 
 server:
   error:
     include-stacktrace: never
+
 #To change the name of the pageable parameters
 #  data:
 #    web:

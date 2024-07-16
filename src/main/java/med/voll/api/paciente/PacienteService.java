@@ -1,14 +1,15 @@
 package med.voll.api.paciente;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class PacienteService implements IPacienteService {
 
-  @Autowired PacienteRepository repository;
+  private final PacienteRepository repository;
 
   @Override
   public Paciente save(PacienteInput record) {
