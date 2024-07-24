@@ -1,6 +1,7 @@
-package med.voll.api.medico;
+package med.voll.api.service.output;
 
 import lombok.Builder;
+import med.voll.api.domain.medico.EspecialidadeEnum;
 
 @Builder
 public record MedicoCleanOutput(

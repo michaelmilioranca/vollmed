@@ -1,6 +1,9 @@
-package med.voll.api.paciente;
+package med.voll.api.domain.paciente;
 
-import med.voll.api.endereco.EnderecoTransformer;
+import med.voll.api.domain.endereco.EnderecoTransformer;
+import med.voll.api.service.input.PacienteInput;
+import med.voll.api.service.output.PacienteCleanOutput;
+import med.voll.api.service.output.PacienteOutput;
 
 public class PacienteTransformer {
   public static PacienteCleanOutput entityToOutRecord(Paciente paciente) {

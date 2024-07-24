@@ -12,16 +12,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class TokenService {
 
+  private static final String ISSUER = "API Voll.med";
+
   @Value(value = "${api.security.token.secret}")
   private String secret;
 
   public String gerarToken(final Usuario usuario) {
     final var algorithm = Algorithm.HMAC256(secret);
     return JWT.create()
-        .withIssuer("API Voll.med") // Identificação da aplicação
+        .withIssuer(ISSUER) // Identificação da aplicação
         .withSubject(usuario.getUsername())
         .withExpiresAt(obterDataExpiracao())
         .sign(algorithm);
+  }
+
+  public String getSubject(String token) {
+    final var algorithm = Algorithm.HMAC256(secret);
+    return JWT.require(algorithm).withIssuer(ISSUER).build().verify(token).getSubject();
   }
 
   private Instant obterDataExpiracao() {

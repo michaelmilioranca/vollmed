@@ -1,5 +1,6 @@
 package med.voll.api.infra.security;
 
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,26 +12,42 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity // Identifies that we are going to customize security stuff
+@EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig {
 
-  @Bean // Needed to tell to the Application inject this when we use
-  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-    return httpSecurity
-        .headers()
-        .frameOptions()
-        .sameOrigin() // Precisa para que, seja possível usar o h2 console
-        .and()
-        .csrf(AbstractHttpConfigurer::disable) // Disable since we are using JWT
-        .sessionManagement(
-            sessionManagement ->
-                sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+  private static final String[] WHITE_LIST_URL = {
+    "/v2/api-docs",
+    "/v3/api-docs",
+    "/v3/api-docs/**",
+    "/swagger-resources",
+    "/actuator",
+    "/actuator/health",
+    "/swagger-resources/**",
+    "/swagger-ui/**",
+    "/swagger-ui.html",
+    "/login"
+  };
+
+  private final SecurityFilter securityFilter;
+
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    return http.csrf(AbstractHttpConfigurer::disable)
+        .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(
+            req -> {
+              req.requestMatchers(WHITE_LIST_URL).permitAll();
+              req.anyRequest().authenticated();
+            })
+        .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
   }
 
-  @Bean // Needed to tell to the Application inject this when we use
+  @Bean
   public AuthenticationManager authenticationManager(
       AuthenticationConfiguration authenticationConfiguration) throws Exception {
     return authenticationConfiguration.getAuthenticationManager();
@@ -38,7 +55,6 @@ public class SecurityConfig {
 
   @Bean
   public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder(); // Since we are using this algo we tell spring to use as
-    // well
+    return new BCryptPasswordEncoder();
   }
 }

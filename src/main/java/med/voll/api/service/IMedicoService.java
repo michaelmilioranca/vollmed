@@ -1,9 +1,9 @@
 package med.voll.api.service;
 
-import med.voll.api.medico.Medico;
-import med.voll.api.medico.MedicoCleanOutput;
-import med.voll.api.medico.MedicoInput;
-import med.voll.api.medico.UpdateMedicoRecord;
+import med.voll.api.domain.medico.Medico;
+import med.voll.api.service.input.MedicoInput;
+import med.voll.api.service.input.UpdateMedicoInput;
+import med.voll.api.service.output.MedicoCleanOutput;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,7 +12,7 @@ public interface IMedicoService {
 
   Page<MedicoCleanOutput> findAllAtivo(Pageable paginacao);
 
-  void update(Medico medico, UpdateMedicoRecord toBeUpdate);
+  void update(Medico medico, UpdateMedicoInput toBeUpdate);
 
   Medico findById(Long id);
 

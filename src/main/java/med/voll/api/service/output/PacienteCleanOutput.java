@@ -1,4 +1,4 @@
-package med.voll.api.paciente;
+package med.voll.api.service.output;
 
 import lombok.Builder;
 

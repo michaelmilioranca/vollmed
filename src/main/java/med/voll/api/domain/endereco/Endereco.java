@@ -1,10 +1,11 @@
-package med.voll.api.endereco;
+package med.voll.api.domain.endereco;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import med.voll.api.service.input.EnderecoInput;
 
 @Embeddable
 @Getter
@@ -21,7 +22,7 @@ public class Endereco {
   private String cidade;
   private String uf;
 
-  public void update(EnderecoRecord updatedEndereco) {
+  public void update(EnderecoInput updatedEndereco) {
     if (updatedEndereco.logradouro() != null) {
       this.logradouro = updatedEndereco.logradouro();
     }

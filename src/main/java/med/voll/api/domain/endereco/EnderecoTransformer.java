@@ -1,8 +1,10 @@
-package med.voll.api.endereco;
+package med.voll.api.domain.endereco;
+
+import med.voll.api.service.input.EnderecoInput;
 
 public class EnderecoTransformer {
 
-  public static Endereco recordToEntity(final EnderecoRecord record) {
+  public static Endereco recordToEntity(final EnderecoInput record) {
     return Endereco.builder()
         .cep(record.cep())
         .uf(record.uf())
@@ -14,8 +16,8 @@ public class EnderecoTransformer {
         .build();
   }
 
-  public static EnderecoRecord entityToRecord(Endereco endereco) {
-    return new EnderecoRecord(
+  public static EnderecoInput entityToRecord(Endereco endereco) {
+    return new EnderecoInput(
         endereco.getLogradouro(),
         endereco.getBairro(),
         endereco.getCep(),

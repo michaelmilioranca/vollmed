@@ -1,9 +1,9 @@
-package med.voll.api.endereco;
+package med.voll.api.service.input;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-public record EnderecoRecord(
+public record EnderecoInput(
     @NotBlank(message = "Logradouro é obrigatório") String logradouro,
     @NotBlank(message = "Bairro é obrigatório") String bairro,
     @NotBlank(message = "CEP é obrigatório")

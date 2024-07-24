@@ -1,4 +1,7 @@
 spring:
+  sql:
+    init:
+      mode: never
   jpa:
     open-in-view: true
   datasource:
@@ -8,7 +11,8 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
-
+  mvc:
+    static-path-pattern: /swagger*:api
 api:
   security:
     token:
@@ -18,7 +22,7 @@ server:
   error:
     include-stacktrace: never
 
-#To change the name of the pageable parameters
+#Muda o nome dos parametros do pageable
 #  data:
 #    web:
 #      pageable:

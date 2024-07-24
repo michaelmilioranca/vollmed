@@ -1,4 +1,4 @@
-package med.voll.api.medico;
+package med.voll.api.domain.medico;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -10,17 +10,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.api.endereco.Endereco;
+import med.voll.api.domain.endereco.Endereco;
+import med.voll.api.service.input.UpdateMedicoInput;
 
 @Entity
 @Table(name = "medico")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 @Builder
 public class Medico {
 
@@ -40,7 +39,7 @@ public class Medico {
   // Basically this turns the fields as a separated object instead of having them all here
   @Embedded private Endereco endereco;
 
-  public void update(UpdateMedicoRecord updatedMedico) {
+  public void update(UpdateMedicoInput updatedMedico) {
     if (updatedMedico.nome() != null) {
       this.nome = updatedMedico.nome();
     }

@@ -1,7 +1,8 @@
-package med.voll.api.medico;
+package med.voll.api.service.output;
 
 import lombok.Builder;
-import med.voll.api.endereco.EnderecoRecord;
+import med.voll.api.domain.medico.EspecialidadeEnum;
+import med.voll.api.service.input.EnderecoInput;
 
 @Builder
 public record MedicoOutput(
@@ -11,4 +12,4 @@ public record MedicoOutput(
     String telefone,
     String crm,
     EspecialidadeEnum especialidade,
-    EnderecoRecord endereco) {}
+    EnderecoInput endereco) {}

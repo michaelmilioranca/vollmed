@@ -24,7 +24,6 @@ class MedicoControllerTest extends BaseUnitTest {
 
   @Test
   void deveRetornar401QuandoNaoPassarToken() throws Exception {
-
     when(service.findAllAtivo(any())).thenReturn(Page.empty());
     this.mockMvc
         .perform(get("/medicos"))

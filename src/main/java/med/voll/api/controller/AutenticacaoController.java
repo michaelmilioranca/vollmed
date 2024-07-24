@@ -1,10 +1,10 @@
 package med.voll.api.controller;
 
 import jakarta.validation.Valid;
-import med.voll.api.domain.usario.AuthenticationInput;
 import med.voll.api.domain.usario.Usuario;
 import med.voll.api.infra.security.TokenService;
 import med.voll.api.infra.security.dto.DadosTokenJwt;
+import med.voll.api.service.input.AuthenticationInput;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

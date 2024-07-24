@@ -1,21 +1,15 @@
 version: '3.3'
 services:
   vollmed_db:
-    platform: linux/x86_64 # only needed if using mac without intel chip
+    platform: linux/x86_64 # So para o caso de estar com Mac M alguma coisa
     image: mysql:8.0.32
     restart: always
     environment:
       MYSQL_DATABASE: 'vollmed_api'
-      # So you don't have to use root, but you can if you like
       MYSQL_USER: 'admin'
-      # You can use whatever password you like
       MYSQL_PASSWORD: 'do_not_change_it'
-      # Password for root access
       MYSQL_ROOT_PASSWORD: 'password'
     ports:
-      # <Port exposed> : <MySQL Port running inside container>
       - '3306:3306'
     expose:
-      # Opens port 3306 on the container
       - '3306'
-      # Where our data will be persisted

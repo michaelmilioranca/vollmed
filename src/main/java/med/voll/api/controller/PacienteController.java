@@ -2,12 +2,12 @@ package med.voll.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.paciente.IPacienteService;
-import med.voll.api.paciente.PacienteCleanOutput;
-import med.voll.api.paciente.PacienteInput;
-import med.voll.api.paciente.PacienteOutput;
-import med.voll.api.paciente.PacienteTransformer;
-import med.voll.api.paciente.UpdatePacienteRecord;
+import med.voll.api.domain.paciente.PacienteTransformer;
+import med.voll.api.service.IPacienteService;
+import med.voll.api.service.input.PacienteInput;
+import med.voll.api.service.input.UpdatePacienteInput;
+import med.voll.api.service.output.PacienteCleanOutput;
+import med.voll.api.service.output.PacienteOutput;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -58,7 +58,7 @@ public class PacienteController {
   @PutMapping("/{id}")
   @Transactional
   public ResponseEntity<PacienteOutput> update(
-      @PathVariable Long id, @RequestBody @Valid UpdatePacienteRecord record) {
+      @PathVariable Long id, @RequestBody @Valid UpdatePacienteInput record) {
     var paciente = service.findById(id);
     service.update(paciente, record);
     return ResponseEntity.ok(PacienteTransformer.entityToRecord(paciente));

@@ -1,4 +1,4 @@
-package med.voll.api.paciente;
+package med.voll.api.domain.paciente;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -8,17 +8,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import med.voll.api.endereco.Endereco;
+import med.voll.api.domain.endereco.Endereco;
+import med.voll.api.service.input.UpdatePacienteInput;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "paciente")
 @Builder
@@ -38,7 +37,7 @@ public class Paciente {
     this.ativo = false;
   }
 
-  public void update(UpdatePacienteRecord updatedPaciente) {
+  public void update(UpdatePacienteInput updatedPaciente) {
     if (updatedPaciente.nome() != null) {
       this.nome = updatedPaciente.nome();
     }

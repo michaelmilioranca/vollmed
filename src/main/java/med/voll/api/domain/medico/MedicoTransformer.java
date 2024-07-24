@@ -1,6 +1,9 @@
-package med.voll.api.medico;
+package med.voll.api.domain.medico;
 
-import med.voll.api.endereco.EnderecoTransformer;
+import med.voll.api.domain.endereco.EnderecoTransformer;
+import med.voll.api.service.input.MedicoInput;
+import med.voll.api.service.output.MedicoCleanOutput;
+import med.voll.api.service.output.MedicoOutput;
 
 public class MedicoTransformer {
 

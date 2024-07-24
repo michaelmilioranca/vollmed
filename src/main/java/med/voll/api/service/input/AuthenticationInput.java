@@ -1,4 +1,4 @@
-package med.voll.api.domain.usario;
+package med.voll.api.service.input;
 
 import jakarta.validation.constraints.NotBlank;
 
