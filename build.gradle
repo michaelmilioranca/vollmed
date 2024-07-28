@@ -55,7 +55,7 @@ tasks.named('test') {
 spotless {
 	java {
 		removeUnusedImports()
-		googleJavaFormat()
+		palantirJavaFormat()
 		formatAnnotations()
 		trimTrailingWhitespace()
 

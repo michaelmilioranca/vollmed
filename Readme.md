@@ -2,39 +2,42 @@
 
 - Docker
 - Gradle
-- Java 17
+- Java 21
 - MySql
+- SpringBoot 3
 
 # Run Locally
 
-We can either run using a docker database image through the command
+Para rodar local pode ser utilizado o profile de `dev`, assim sera criado um banco h2 que sera inicializado com dados ficticios conforme o arquivo data.sql
+
+Exemplo rodando com profile de dev pelo terminal:
+
+```BASH
+./gradlew bootRun --args='--spring.profiles.active=dev'
+```
+
+Ou caso preferir pode ser utilizado o docker para subir um banco de dados local
+
+Para subir o docker pode ser utilizado o comando abaixo:
 
 ```BASH
 docker compose --file docker-compose.yml up vollmed_db -d
 ```
-Important, if you run the database local, you need to change the url on `application-dev.yml`
-
-Or simply using in memory database (default mode)
-
-After you decided which method you want, you can then run the command below
-
-```BASH
-./gradlew bootRun --args="--spring.profiles.active=dev"
-```
+Importante! Caso opte por rodar local com o docker, deve ser atualizado as informacoes do banco de dados no arquivo `application-dev.yml`
 
 
-# Sort pageable get endpoint
+# Sort pageable
 
-In order to sort the pageable get endpoints simply add in your call the following parameters:
-- sort=<name_of_field> : This will order the response using your choice of field
-- size=<page_size> : This will ensure that each page has the desired number of elements
-- page=<page_number> : This will return the desired page
+Para poder usar a paginacao nos endpoint de consulta, pode simplesmente adicionar na chamada do servico os seguintes parametros:
+- sort=<nome do campo> : O nome do campo que sera ordenado
+- size=<tamanho da paginacao> : Numero de elementos retornado por pagina
+- page=<numero da pagica> : Pagina desejada
 
-Example: https://localhost:8080/medicos?sort=nome,desc&size=1&page=2
+Exemplo: https://localhost:8080/medicos?sort=nome,desc&size=1&page=2
 
 # Error translation
 
-In order to receive an error with the desired language we can send into the header the following parameter:
+Para receber os erros conforme a localidade, pode ser adicionado no header da requisicao o seguinte parametro:
 
 - Accept-Language: pt-br
 
