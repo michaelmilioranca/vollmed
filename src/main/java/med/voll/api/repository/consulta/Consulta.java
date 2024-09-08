@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import med.voll.api.controller.input.MotivoCancelamentoEnum;
 import med.voll.api.repository.medico.Medico;
 import med.voll.api.repository.paciente.Paciente;
 
@@ -27,4 +28,11 @@ public class Consulta {
     private Paciente paciente;
 
     private LocalDateTime data;
+
+    @Enumerated(EnumType.STRING)
+    private MotivoCancelamentoEnum motivoCancelamento;
+
+    public void cancelar(MotivoCancelamentoEnum motivo) {
+        this.motivoCancelamento = motivo;
+    }
 }

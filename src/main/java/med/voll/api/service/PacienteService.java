@@ -1,5 +1,6 @@
 package med.voll.api.service;
 
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import med.voll.api.controller.input.PacienteInput;
 import med.voll.api.controller.input.UpdatePacienteInput;
@@ -13,32 +14,27 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class PacienteService implements IPacienteService {
+public class PacienteService {
 
     private final PacienteRepository repository;
 
-    @Override
-    public Paciente save(PacienteInput record) {
+    public Paciente salvar(PacienteInput record) {
         return repository.save(PacienteTransformer.inRecordToEntity(record));
     }
 
-    @Override
-    public Page<PacienteCleanOutput> findAllAtivo(Pageable paginacao) {
+    public Page<PacienteCleanOutput> buscarTodosAtivos(Pageable paginacao) {
         return repository.findAllByAtivoTrue(paginacao).map(PacienteTransformer::entityToOutRecord);
     }
 
-    @Override
-    public void inactive(Paciente paciente) {
+    public void inativar(Paciente paciente) {
         paciente.inactive();
     }
 
-    @Override
-    public Paciente findById(Long id) {
-        return repository.getReferenceById(id);
+    public Optional<Paciente> buscarPorId(Long id) {
+        return repository.findById(id);
     }
 
-    @Override
-    public void update(Paciente paciente, UpdatePacienteInput updatedPaciente) {
+    public void atualizar(Paciente paciente, UpdatePacienteInput updatedPaciente) {
         paciente.update(updatedPaciente);
     }
 }

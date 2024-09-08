@@ -1,19 +1,21 @@
 package med.voll.api.util.validacoes;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import java.nio.charset.StandardCharsets;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+
+import java.nio.charset.StandardCharsets;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 public class ValidarControllerChain {
 
@@ -44,15 +46,15 @@ public class ValidarControllerChain {
         private final MockMvc mockMvc;
         private final String endpoint;
         private final ObjectMapper objectMapper;
-        private final ObjectWriter objectWriter;
         private MockHttpServletResponse response;
         private MockHttpServletRequestBuilder requestBuilder;
 
         public ValidarChain(MockMvc mockMvc, String endpoint) {
             this.mockMvc = mockMvc;
             this.endpoint = endpoint;
-            this.objectMapper = new ObjectMapper();
-            this.objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+            this.objectMapper = new ObjectMapper()
+                    .registerModule(new ParameterNamesModule())
+                    .enable(SerializationFeature.INDENT_OUTPUT);
         }
 
         @Override
@@ -88,11 +90,11 @@ public class ValidarControllerChain {
         }
 
         @Override
-        public <T> void eSaida(Object saida, Class<T> tipoSaida) {
+        public <T> void eSaida(Object objetoEsperado, Class<T> tipoSaida) {
             try {
-                var retornoChamada = response.getContentAsString(StandardCharsets.UTF_8);
-                var saidaEmJson = converterSaida(saida, tipoSaida);
-                assertEquals(saidaEmJson, retornoChamada);
+                var corpoEmJson = response.getContentAsString(StandardCharsets.UTF_8);
+                var corpoConvertido = converterSaida(corpoEmJson, tipoSaida);
+                assertEquals(objetoEsperado, corpoConvertido);
             } catch (Exception e) {
                 throw new RuntimeException(
                         "Houve um problema ao realizar a conversao do corpo enviado: %s"
@@ -103,14 +105,14 @@ public class ValidarControllerChain {
 
         private String converterParaJson(Object converter) {
             try {
-                return objectWriter.writeValueAsString(converter);
+                return objectMapper.writeValueAsString(converter);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException("Erro ao converter corpo para JSON", e);
             }
         }
 
-        private <T> Object converterSaida(Object saida, Class<T> tipoSaida) {
-            return objectMapper.convertValue(saida, tipoSaida);
+        private <T> Object converterSaida(String saida, Class<T> tipoSaida) throws JsonProcessingException {
+            return objectMapper.readValue(saida, tipoSaida);
         }
     }
 }

@@ -28,7 +28,7 @@ class MedicoControllerTest extends BaseControllerUnitTest {
 
     @Test
     void deveRetornar200QuandoChamarBuscaPorTodosMedicos() {
-        when(service.findAllAtivo(any())).thenReturn(Page.empty());
+        when(service.buscarTodosAtivos(any())).thenReturn(Page.empty());
         chamando(mockMvc, "/medicos").comMetodoGet().retornaComStatus(HttpStatus.OK);
     }
 

@@ -7,28 +7,21 @@ import med.voll.api.controller.input.UpdatePacienteInput;
 import med.voll.api.controller.output.PacienteCleanOutput;
 import med.voll.api.controller.output.PacienteOutput;
 import med.voll.api.repository.paciente.PacienteTransformer;
-import med.voll.api.service.IPacienteService;
+import med.voll.api.service.PacienteService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/pacientes")
 public class PacienteController {
 
-    private final IPacienteService service;
+    private final PacienteService service;
 
-    public PacienteController(final IPacienteService service) {
+    public PacienteController(final PacienteService service) {
         this.service = service;
     }
 
@@ -36,7 +29,7 @@ public class PacienteController {
     @Transactional
     public ResponseEntity<PacienteOutput> save(
             @RequestBody @Valid PacienteInput input, UriComponentsBuilder uriBuilder) {
-        var paciente = service.save(input);
+        var paciente = service.salvar(input);
         var uri = uriBuilder
                 .path("/pacientes/{id}")
                 .buildAndExpand(paciente.getId())
@@ -50,28 +43,38 @@ public class PacienteController {
                             size = 5,
                             sort = {"nome"})
                     Pageable paginacao) {
-        return ResponseEntity.ok(service.findAllAtivo(paginacao));
+        return ResponseEntity.ok(service.buscarTodosAtivos(paginacao));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PacienteOutput> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(PacienteTransformer.entityToRecord(service.findById(id)));
+        var paciente = service.buscarPorId(id);
+        return paciente.map(value -> ResponseEntity.ok(PacienteTransformer.entityToRecord(value)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<PacienteOutput> update(
             @PathVariable Long id, @RequestBody @Valid UpdatePacienteInput record) {
-        var paciente = service.findById(id);
-        service.update(paciente, record);
-        return ResponseEntity.ok(PacienteTransformer.entityToRecord(paciente));
+        var paciente = service.buscarPorId(id);
+
+        if (paciente.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        service.atualizar(paciente.get(), record);
+        return ResponseEntity.ok(PacienteTransformer.entityToRecord(paciente.get()));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity delete(@PathVariable Long id) {
-        var paciente = service.findById(id);
-        service.inactive(paciente);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        var paciente = service.buscarPorId(id);
+
+        if (paciente.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        service.inativar(paciente.get());
         return ResponseEntity.noContent().build();
     }
 }

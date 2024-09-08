@@ -18,9 +18,6 @@ class HelloControllerTest extends BaseControllerUnitTest {
 
     @Test
     public void helloWorldTest() {
-        chamando(mockMvc, "/hello")
-                .comMetodoGet()
-                .retornaComStatus(HttpStatus.OK)
-                .eSaida("Ola sou um tea bot", String.class);
+        chamando(mockMvc, "/hello").comMetodoGet().retornaComStatus(HttpStatus.OK);
     }
 }

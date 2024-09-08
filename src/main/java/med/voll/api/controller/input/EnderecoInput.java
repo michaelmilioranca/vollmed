@@ -2,7 +2,9 @@ package med.voll.api.controller.input;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.Builder;
 
+@Builder
 public record EnderecoInput(
         @NotBlank(message = "Logradouro é obrigatório") String logradouro,
         @NotBlank(message = "Bairro é obrigatório") String bairro,
