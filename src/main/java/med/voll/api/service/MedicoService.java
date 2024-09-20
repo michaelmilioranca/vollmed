@@ -1,6 +1,7 @@
 package med.voll.api.service;
 
 import jakarta.transaction.Transactional;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import med.voll.api.controller.input.MedicoInput;
 import med.voll.api.controller.input.UpdateMedicoInput;
@@ -11,8 +12,6 @@ import med.voll.api.repository.medico.MedicoTransformer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

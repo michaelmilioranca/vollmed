@@ -1,5 +1,9 @@
 package med.voll.api.controller;
 
+import static med.voll.api.util.validacoes.ValidarControllerChain.chamando;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import med.voll.api.BaseControllerUnitTest;
 import med.voll.api.controller.input.MedicoInput;
 import med.voll.api.service.MedicoService;
@@ -11,10 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static med.voll.api.util.validacoes.ValidarControllerChain.chamando;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @WebMvcTest(MedicoController.class)
 @AutoConfigureMockMvc(addFilters = false)

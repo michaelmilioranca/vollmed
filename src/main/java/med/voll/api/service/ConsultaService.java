@@ -1,10 +1,12 @@
 package med.voll.api.service;
 
+import java.util.List;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
 import med.voll.api.controller.input.DadosAgendamentoConsultaInput;
 import med.voll.api.controller.input.DadosCancelamentoConsulta;
 import med.voll.api.controller.output.DadosDetalhamentoConsultaOutput;
+import med.voll.api.domain.consulta.validacoes.IValidarConsulta;
 import med.voll.api.infra.exception.ValidacaoException;
 import med.voll.api.repository.consulta.Consulta;
 import med.voll.api.repository.consulta.ConsultaRepository;
@@ -22,10 +24,11 @@ public class ConsultaService {
     private final MedicoService medicoService;
     private final PacienteService pacienteService;
     private final MedicoRepository medicoRepository;
+    private final List<IValidarConsulta> validadoresDeConsultas;
 
     public DadosDetalhamentoConsultaOutput agendar(DadosAgendamentoConsultaInput consultaInput) {
         validarDadosEntrada(consultaInput);
-
+        validadoresDeConsultas.forEach(validador -> validador.validar(consultaInput));
         var paciente = buscarPaciente(consultaInput);
         var medico = escolherMedico(consultaInput);
         var consulta = new Consulta(null, medico, paciente, consultaInput.data(), null);
