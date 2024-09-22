@@ -10,7 +10,7 @@ public class ValidarHorarioFuncionamento implements IValidarConsulta {
     @Override
     public void validar(DadosAgendamentoConsultaInput input) {
         var hour = input.data().getHour();
-        if (hour >= 7 && hour < 18) {
+        if (hour < 7 || hour > 18) {
             throw new ValidacaoException("Consulta fora do horario de funcionamento");
         }
     }
