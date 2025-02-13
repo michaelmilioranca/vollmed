@@ -1,68 +1,89 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.4.1'
-	id 'io.spring.dependency-management' version '1.1.7'
-	id 'com.diffplug.spotless' version '7.0.2'
-	id 'io.freefair.lombok' version '8.11'
-	id 'com.github.ben-manes.versions' version '0.48.0'
+    id 'java'
+    id 'org.springframework.boot' version '3.4.1'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'com.diffplug.spotless' version '7.0.2'
+    id 'io.freefair.lombok' version '8.11'
+    id 'com.github.ben-manes.versions' version '0.48.0'
 }
 
 group = 'med.voll'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	version = 21
+    version = 21
 }
 
 repositories {
-	mavenCentral()
-	maven { url 'https://repo.spring.io/milestone' }
-	maven { url 'https://repo.spring.io/snapshot' }
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
 }
 
 ext {
-	springBootVersion = '3.4.1'
-	h2Version = '2.3.232'
+    springBootVersion = '3.4.1'
+    h2Version = '2.3.232'
 }
 
 dependencies {
-	// Spring boot
-	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-	implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
-	implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
-	// Security
-	implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
-	implementation 'com.auth0:java-jwt:4.4.0'
-	// Swagger
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3'
-	// Flyway
-	implementation 'org.flywaydb:flyway-core:11.2.0'
-	implementation 'org.flywaydb:flyway-mysql:11.2.0'
-	// Database
-	implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
-	implementation 'com.mysql:mysql-connector-j:9.0.0'
+    // Spring boot
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    // Security
+    implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+    implementation 'com.auth0:java-jwt:4.4.0'
+    // Swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3'
+    // Flyway
+    implementation 'org.flywaydb:flyway-core:11.2.0'
+    implementation 'org.flywaydb:flyway-mysql:11.2.0'
+    // Database
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+    implementation 'com.mysql:mysql-connector-j:9.0.0'
 
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	developmentOnly "com.h2database:h2:${h2Version}"
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    developmentOnly "com.h2database:h2:${h2Version}"
 
-	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-	testImplementation "com.h2database:h2:${h2Version}"
-	testImplementation 'org.springframework.security:spring-security-test:6.4.2'
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testImplementation "com.h2database:h2:${h2Version}"
+    testImplementation 'org.springframework.security:spring-security-test:6.4.2'
 
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
+
+    // Enable test logging to show test names
+    testLogging {
+        // Log the lifecycle of test execution
+        events "passed", "failed", "skipped"
+
+        // Optional: Show more details about test output
+        exceptionFormat "short"    // Use "short", "full"
+        showExceptions true
+        showCauses true
+        showStackTraces true
+
+        // Optional: Show standard output for debugging, if needed
+        showStandardStreams false
+
+        // Granular logging: Adjust verbosity levels (optional)
+        info.events = ["started", "passed"]
+        debug.events = ["failed"]
+    }
+
 }
+
 
 // Format stuff
 spotless {
-	java {
-		removeUnusedImports()
-		palantirJavaFormat()
-		formatAnnotations()
-		trimTrailingWhitespace()
-	}
+    java {
+        removeUnusedImports()
+        palantirJavaFormat()
+        formatAnnotations()
+        trimTrailingWhitespace()
+    }
 }
 
 compileJava.dependsOn 'spotlessApply'

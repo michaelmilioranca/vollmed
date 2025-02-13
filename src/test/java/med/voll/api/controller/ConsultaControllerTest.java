@@ -1,5 +1,13 @@
 package med.voll.api.controller;
 
+import static med.voll.api.util.validacoes.ValidarControllerChain.chamando;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Stream;
 import med.voll.api.BaseControllerUnitTest;
 import med.voll.api.controller.input.DadosAgendamentoConsultaInput;
 import med.voll.api.controller.input.DadosCancelamentoConsulta;
@@ -19,15 +27,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Stream;
-
-import static med.voll.api.util.validacoes.ValidarControllerChain.chamando;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
 
 @WebMvcTest(ConsultaController.class)
 @AutoConfigureMockMvc(addFilters = false)
