@@ -73,8 +73,18 @@ tasks.named('test') {
         debug.events = ["failed"]
     }
 
+    afterSuite { desc, result ->
+        if (!desc.parent) {
+            println()
+            println("***** Resultados dos testes *****")
+            println("Total testes executados: ${result.testCount}")
+            println("Testes com sucesso: ${result.successfulTestCount}")
+            println("Testes com falha: ${result.failedTestCount}")
+            println("Testes desviados: ${result.skippedTestCount}")
+            println("*********************************")
+        }
+    }
 }
-
 
 // Format stuff
 spotless {
