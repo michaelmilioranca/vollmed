@@ -12,7 +12,5 @@ public record PacienteInput(
         @NotBlank(message = "{nome.obrigatorio}") String nome,
         @NotBlank(message = "{email.obrigatorio}") @Email String email,
         @NotBlank(message = "{telefone.obrigatorio}") String telefone,
-        @NotBlank(message = "{cpf.obrigatorio}")
-                @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}", message = "{cpf.invalido}")
-                String cpf,
+        @NotBlank(message = "{cpf.obrigatorio}") @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}", message = "{cpf.invalido}") String cpf,
         @NotNull(message = "{endereco.obrigatorio}") @Valid EnderecoInput endereco) {}

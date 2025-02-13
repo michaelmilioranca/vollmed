@@ -1,5 +1,6 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import med.voll.api.controller.input.DadosAgendamentoConsultaInput;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/consulta")
 @AllArgsConstructor
+@SecurityRequirement(name = "bearer-key")
 public class ConsultaController {
 
     private final ConsultaService service;

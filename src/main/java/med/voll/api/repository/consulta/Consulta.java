@@ -3,6 +3,7 @@ package med.voll.api.repository.consulta;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.controller.input.MotivoCancelamentoEnum;
@@ -14,6 +15,7 @@ import med.voll.api.repository.paciente.Paciente;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

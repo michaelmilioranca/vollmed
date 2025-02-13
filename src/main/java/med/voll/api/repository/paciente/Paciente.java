@@ -6,11 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import med.voll.api.controller.input.UpdatePacienteInput;
 import med.voll.api.repository.endereco.Endereco;
 
@@ -30,7 +26,9 @@ public class Paciente {
     private String email;
     private String cpf;
     private String telefone;
-    private Boolean ativo;
+
+    @Builder.Default
+    private Boolean ativo = false;
 
     @Embedded
     private Endereco endereco;

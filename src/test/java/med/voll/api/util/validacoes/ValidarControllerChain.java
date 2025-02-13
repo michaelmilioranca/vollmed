@@ -1,20 +1,21 @@
 package med.voll.api.util.validacoes;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-import java.nio.charset.StandardCharsets;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+
+import java.nio.charset.StandardCharsets;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 public class ValidarControllerChain {
 
@@ -26,6 +27,8 @@ public class ValidarControllerChain {
         RetornaStatusStep comMetodoGet();
 
         DefineCorpoStep comMetodoPost();
+
+        DefineCorpoStep comMetodoDelete();
     }
 
     public interface DefineCorpoStep {
@@ -53,6 +56,7 @@ public class ValidarControllerChain {
             this.endpoint = endpoint;
             this.objectMapper = new ObjectMapper()
                     .registerModule(new ParameterNamesModule())
+                    .registerModule(new JavaTimeModule())
                     .enable(SerializationFeature.INDENT_OUTPUT);
         }
 
@@ -65,6 +69,12 @@ public class ValidarControllerChain {
         @Override
         public DefineCorpoStep comMetodoPost() {
             this.requestBuilder = post(endpoint);
+            return this;
+        }
+
+        @Override
+        public DefineCorpoStep comMetodoDelete() {
+            this.requestBuilder = delete(endpoint);
             return this;
         }
 

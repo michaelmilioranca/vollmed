@@ -1,9 +1,10 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.5'
-	id 'io.spring.dependency-management' version '1.1.6'
-	id 'com.diffplug.spotless' version '6.25.0'
-	id 'io.freefair.lombok' version '8.6'
+	id 'org.springframework.boot' version '3.4.1'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.diffplug.spotless' version '7.0.2'
+	id 'io.freefair.lombok' version '8.11'
+	id 'com.github.ben-manes.versions' version '0.48.0'
 }
 
 group = 'med.voll'
@@ -20,8 +21,8 @@ repositories {
 }
 
 ext {
-	springBootVersion = '3.3.2'
-	h2Version = '2.2.224'
+	springBootVersion = '3.4.1'
+	h2Version = '2.3.232'
 }
 
 dependencies {
@@ -33,10 +34,10 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
 	implementation 'com.auth0:java-jwt:4.4.0'
 	// Swagger
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3'
 	// Flyway
-	implementation 'org.flywaydb:flyway-core:10.15.2'
-	implementation 'org.flywaydb:flyway-mysql:10.15.2'
+	implementation 'org.flywaydb:flyway-core:11.2.0'
+	implementation 'org.flywaydb:flyway-mysql:11.2.0'
 	// Database
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
 	implementation 'com.mysql:mysql-connector-j:9.0.0'
@@ -46,7 +47,7 @@ dependencies {
 
 	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
 	testImplementation "com.h2database:h2:${h2Version}"
-	testImplementation 'org.springframework.security:spring-security-test:6.3.1'
+	testImplementation 'org.springframework.security:spring-security-test:6.4.2'
 
 }
 

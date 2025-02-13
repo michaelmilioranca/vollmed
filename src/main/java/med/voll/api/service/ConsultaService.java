@@ -10,6 +10,7 @@ import med.voll.api.domain.consulta.validacoes.IValidarConsulta;
 import med.voll.api.infra.exception.ValidacaoException;
 import med.voll.api.repository.consulta.Consulta;
 import med.voll.api.repository.consulta.ConsultaRepository;
+import med.voll.api.repository.consulta.ConsultaTransformer;
 import med.voll.api.repository.medico.Medico;
 import med.voll.api.repository.medico.MedicoRepository;
 import med.voll.api.repository.paciente.Paciente;
@@ -31,9 +32,12 @@ public class ConsultaService {
         validadoresDeConsultas.forEach(validador -> validador.validar(consultaInput));
         var paciente = buscarPaciente(consultaInput);
         var medico = escolherMedico(consultaInput);
+        if (Objects.isNull(medico)) {
+            throw new ValidacaoException("Nao existe medico disponível para o horario");
+        }
         var consulta = new Consulta(null, medico, paciente, consultaInput.data(), null);
         consultaRepository.save(consulta);
-        return DadosDetalhamentoConsultaOutput.builder().build();
+        return ConsultaTransformer.consultaOutput(consulta);
     }
 
     private void validarDadosEntrada(DadosAgendamentoConsultaInput consultaInput) {

@@ -1,4 +1,7 @@
 spring:
+  threads:
+    virtual:
+      enabled: true
   sql:
     init:
       mode: never
@@ -23,10 +26,10 @@ server:
     include-stacktrace: never
 
 #Muda o nome dos parametros do pageable
-#  data:
-#    web:
-#      pageable:
-#        page-parameter: pagina
-#        size-parameter: tamanho
-#      sort:
-#        sort-parameter: ordem
+  data:
+    web:
+      pageable:
+        page-parameter: pagina
+        size-parameter: tamanho
+      sort:
+        sort-parameter: ordem
